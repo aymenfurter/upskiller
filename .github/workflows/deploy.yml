@@ -40,9 +40,16 @@ jobs:
             --secrets acskey="${{ secrets.ACS_KEY }}" \
               acsinstance="${{ secrets.ACS_INSTANCE }}" \
               openaikey="${{ secrets.OPEN_AI_KEY }}" \
+              microsoftappid="${{ secrets.MICROSOFTAPPID }}" \
+              microsoftapppassword="${{ secrets.MICROSOFTAPPPASSWORD }}" \
+              microsoftapptenantid="${{ secrets.MICROSOFTAPPTENANTID }}" \
             --env-vars ACS_KEY=secretref:acskey \
               ACS_INSTANCE=secretref:acsinstance \
               OPEN_AI_KEY=secretref:openaikey \
+              MicrosoftAppId=secretref:microsoftappid \
+              MicrosoftAppPassword=secretref:microsoftapppassword \
+              MicrosoftAppTenantId=secretref:microsoftapptenantid \
+              MicrosoftAppType=SingleTenant \
             --target-port 5000
           az containerapp create \
             --resource-group ${{ env.RESOURCE_GROUP }} \
