@@ -63,7 +63,14 @@ namespace TeamsBot.Bots
             }
 
             ChatResponse reply = CreateChatResponse(chatResult); 
+            var links = reply.Variables.FirstOrDefault(kvp => kvp.Key == "link").Value;
             var replyText = reply.Value; 
+
+            if (!string.IsNullOrEmpty(links) && !links.Contains("QH2-TGUlwu4"))
+            {
+                replyText += "\n\nSources:\n" + links;
+            }
+
             await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
             await turnContext.SendActivityAsync(MessageFactory.Text(replyText), cancellationToken);
         }
