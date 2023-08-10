@@ -51,6 +51,8 @@ namespace TeamsBot.Bots
             var chatRequest = new ChatRequest { Input = turnContext.Activity.Text, Variables = variables };
             
 
+            await turnContext.SendActivitiesAsync(new Activity[] { new Activity { Type = ActivityTypes.Typing } }, cancellationToken);
+
             SKContext chatResult;
             try
             {
@@ -65,14 +67,27 @@ namespace TeamsBot.Bots
             ChatResponse reply = CreateChatResponse(chatResult); 
             var links = reply.Variables.FirstOrDefault(kvp => kvp.Key == "link").Value;
             var replyText = reply.Value; 
+            
+            await turnContext.SendActivityAsync(MessageFactory.Text(replyText), cancellationToken);
 
             if (!string.IsNullOrEmpty(links) && !links.Contains("QH2-TGUlwu4"))
             {
-                replyText += "\n\nSources:\n" + links;
+                links = links.Replace(" ", Environment.NewLine);
+                links = links.Replace("/embed", "/v");
+                var youtubeLinks = links.Split(Environment.NewLine);
+
+                var card = new HeroCard
+                {
+                    Title = "Sources",
+                    Subtitle = "Relevant YouTube Links",
+                    Buttons = youtubeLinks.Select(link => new CardAction(ActionTypes.OpenUrl, link, value: link)).ToList()
+                };
+
+                var attachment = MessageFactory.Attachment(card.ToAttachment());
+                await turnContext.SendActivityAsync(attachment, cancellationToken);
             }
 
             await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
-            await turnContext.SendActivityAsync(MessageFactory.Text(replyText), cancellationToken);
         }
 
 
