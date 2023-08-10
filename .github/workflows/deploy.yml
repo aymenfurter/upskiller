@@ -34,20 +34,25 @@ jobs:
           az containerapp create \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CHAT_APP_NAME }} \
-            --image ghcr.io/aymenfurter/upskiller/chat:cb668c18b42a3621d6c1902ba694a2ddd183a2a0 \
+            --image ghcr.io/aymenfurter/upskiller/chat:fdacbdbcd852e22e914a551d20f93cd27d8dad8e \
             --environment ${{ env.ENV_NAME }} \
             --ingress external \
             --secrets acskey="${{ secrets.ACS_KEY }}" \
               acsinstance="${{ secrets.ACS_INSTANCE }}" \
               openaikey="${{ secrets.OPEN_AI_KEY }}" \
+              microsoftappid="${{ secrets.MICROSOFTAPPID }}" \
+              microsoftapppassword="${{ secrets.MICROSOFTAPPPASSWORD }}" \
             --env-vars ACS_KEY=secretref:acskey \
               ACS_INSTANCE=secretref:acsinstance \
               OPEN_AI_KEY=secretref:openaikey \
+              MicrosoftAppId=secretref:microsoftappid \
+              MicrosoftAppPassword=secretref:microsoftapppassword \
+              MicrosoftAppType=MultiTenant \
             --target-port 5000
           az containerapp create \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --environment ${{ env.ENV_NAME }} \
             --name ${{ env.WEBUI_APP_NAME }} \
             --ingress external \
-            --image ghcr.io/aymenfurter/upskiller/webui:cb668c18b42a3621d6c1902ba694a2ddd183a2a0 \
+            --image ghcr.io/aymenfurter/upskiller/webui:fdacbdbcd852e22e914a551d20f93cd27d8dad8e \
             --target-port 80
