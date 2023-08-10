@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EchoBot;
+using TeamsBot;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
@@ -60,7 +60,7 @@ public sealed class Program
             .AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>()
             .AddSingleton<IStorage, MemoryStorage>()
             .AddSingleton<ConversationState>()
-            .AddTransient<IBot, EchoBot.Bots.EchoBot>();
+            .AddTransient<IBot, TeamsBot.Bots.TeamsBot>();
 
         builder.Services
             .AddApplicationInsightsTelemetry()

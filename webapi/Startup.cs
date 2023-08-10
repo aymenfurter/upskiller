@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Bot.Builder;
 
 
-namespace EchoBot
+namespace TeamsBot
 {
     public class Startup
     {
@@ -45,7 +45,7 @@ namespace EchoBot
             services.AddSingleton(conversationState);
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, Bots.EchoBot>();
+            services.AddTransient<IBot, Bots.TeamsBot>();
         }
     }
 }

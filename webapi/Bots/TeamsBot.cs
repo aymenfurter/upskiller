@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 //
-// Generated with EchoBot .NET Template version v4.17.1
 
 using System;
 using System.Collections.Generic;
@@ -19,9 +18,9 @@ using SemanticKernel.Service.CopilotChat.Controllers;
 using SemanticKernel.Service.CopilotChat.Skills.ChatSkills;
 using SemanticKernel.Service.Models;
 
-namespace EchoBot.Bots
+namespace TeamsBot.Bots
 {
-    public class EchoBot : ActivityHandler
+    public class TeamsBot : ActivityHandler
     {
         private readonly IKernel _chatKernel;
         private readonly Planner _chatPlanner;
@@ -31,7 +30,7 @@ namespace EchoBot.Bots
         private readonly BotState _conversationState;
 
 
-        public EchoBot(IKernel chatKernel, Planner chatPlanner, ConversationState conversationState)
+        public TeamsBot(IKernel chatKernel, Planner chatPlanner, ConversationState conversationState)
         {
             _chatKernel = chatKernel ?? throw new ArgumentNullException(nameof(chatKernel));
             _chatPlanner = chatPlanner ?? throw new ArgumentNullException(nameof(chatPlanner));
@@ -63,10 +62,10 @@ namespace EchoBot.Bots
                 return;
             }
 
-            ChatResponse reply = CreateChatResponse(chatResult); // Assuming this method creates a response text
+            ChatResponse reply = CreateChatResponse(chatResult); 
             var replyText = reply.Value; 
             await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
-            await turnContext.SendActivityAsync(MessageFactory.Text(replyText, replyText), cancellationToken);
+            await turnContext.SendActivityAsync(MessageFactory.Text(replyText), cancellationToken);
         }
 
 
