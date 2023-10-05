@@ -5,6 +5,7 @@ using Microsoft.SemanticKernel.Orchestration;
 
 namespace SemanticKernel.Service.CopilotChat.Skills;
 
+
 /// <summary>
 /// Utility methods for skills.
 /// </summary>
